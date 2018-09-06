@@ -789,7 +789,7 @@ export default class Carousel extends Component {
         }
 
         if (nextActiveItem === this._itemToSnapTo &&
-            scrollOffset === this._scrollOffsetRef) {
+            (Math.abs(scrollOffset - this._scrollOffsetRef) < 1)) {
             this._repositionScroll(nextActiveItem);
         }
 
@@ -1063,7 +1063,7 @@ export default class Carousel extends Component {
     }
 
     snapToItem (index, animated = true, fireCallback = true) {
-        if (!index || index < 0) {
+        if(index === null || index === undefined || (index < (this.props.loop ? -this.props.loopClonesPerSide : 0))) {
             index = 0;
         }
 
